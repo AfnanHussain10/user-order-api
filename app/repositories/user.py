@@ -7,6 +7,7 @@ from app.core.security import get_password_hash, verify_password
 
 
 class UserRepository(BaseRepository[User, UserCreate, UserUpdate]):
+
     def get_by_email(self, db: Session, *, email: str) -> Optional[User]:
         return db.query(User).filter(User.email == email).first()
     

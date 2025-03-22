@@ -5,6 +5,7 @@ from app.core.config import settings
 from app.core.security import create_access_token, create_refresh_token
 from app.repositories.user import user_repository
 from app.schemas.auth import Token
+from jose import jwt, JWTError
 from sqlalchemy.orm import Session
 
 
@@ -13,7 +14,7 @@ class AuthService:
     def login(db: Session, email: str, password: str) -> Optional[Token]:
 
         #Authenticate user and return tokens
-        user = user_repository.authenticate(db=db, email=email, password=password)
+        user = user_repository.authenticate(db=db, email=email, password=password) 
         if not user:
             return None
         
@@ -33,7 +34,7 @@ class AuthService:
         
         #Create new access token from refresh token
 
-        from jose import jwt, JWTError
+        
         
         try:
             payload = jwt.decode(
