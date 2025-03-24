@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, validator
 from datetime import datetime
 
 
@@ -15,6 +15,13 @@ class UserCreate(UserBase):
     email: EmailStr
     password: str
     role: Optional[str] = "customer"
+
+    @validator('role')
+    def validate_role(cls, v):
+        allowed_roles = ["admin", "customer"]
+        if v not in allowed_roles:
+            raise ValueError(f"Role must be one of {allowed_roles}")
+        return v
 
 
 # Properties to receive on user update

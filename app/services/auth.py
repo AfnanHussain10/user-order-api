@@ -20,9 +20,10 @@ class AuthService:
         
         access_token = create_access_token(
             subject=user.id,
+            role=user.role,
             expires_delta=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
         )
-        refresh_token = create_refresh_token(subject=user.id)
+        refresh_token = create_refresh_token(subject=user.id, role=user.role)
         
         return Token(
             access_token=access_token,
@@ -52,9 +53,10 @@ class AuthService:
         
         access_token = create_access_token(
             subject=user.id,
+            role=user.role,
             expires_delta=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
         )
-        new_refresh_token = create_refresh_token(subject=user.id)
+        new_refresh_token = create_refresh_token(subject=user.id, role=user.role)
         
         return Token(
             access_token=access_token,
