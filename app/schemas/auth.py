@@ -11,6 +11,7 @@ class Token(BaseModel):
 class TokenPayload(BaseModel):
     sub: Optional[int] = None
     exp: Optional[int] = None
+    role: Optional[str] = None
 
 
 class RefreshToken(BaseModel):
